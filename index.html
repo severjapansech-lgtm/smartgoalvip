@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BINDEVDEPZAI</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .pulse-subtle {
+            animation: pulse 3s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(0.99); }
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12 px-4 sm:px-6 lg:px-8">
+
+    <!-- Header Section -->
+    <header class="max-w-6xl mx-auto pt-8 pb-6 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+            <i data-lucide="target" class="w-4 h-4"></i> Goal Setter & Tracker
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3">
+            Weekly <span class="gradient-text">S.M.A.R.T. Goal</span> bybindz
+        </h1>
+        <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
+            Break down big ambitions into clear, measurable, and achievable targets for the next 7 days.
+        </p>
+
+        <!-- Goal Preset Selector -->
+        <div class="mt-8 flex flex-wrap justify-center gap-2 sm:gap-3">
+            <button onclick="loadPreset('work')" id="btn-work" class="preset-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 bg-indigo-600 text-white shadow-lg shadow-indigo-500/25">
+                💼 Work & Career
+            </button>
+            <button onclick="loadPreset('fitness')" id="btn-fitness" class="preset-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 bg-slate-800 text-slate-300 hover:bg-slate-700">
+                🏃 Fitness & Health
+            </button>
+            <button onclick="loadPreset('learning')" id="btn-learning" class="preset-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 bg-slate-800 text-slate-300 hover:bg-slate-700">
+                📚 Skill & Study
+            </button>
+            <button onclick="loadPreset('custom')" id="btn-custom" class="preset-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 bg-slate-800 text-slate-300 hover:bg-slate-700">
+                ✏️ Custom Goal
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto space-y-8">
+
+        <!-- Hero Banner: Main Objective -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden shadow-2xl border-indigo-500/20">
+            <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                <div class="space-y-2 flex-1">
+                    <div class="flex items-center gap-2 text-xs font-semibold text-indigo-400 uppercase tracking-widest">
+                        <i data-lucide="flag" class="w-4 h-4"></i> Overarching Weekly Goal
+                    </div>
+                    <h2 id="goal-title" class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                        Complete Q4 Strategy Presentation Draft & Get Feedback
+                    </h2>
+                    <p id="goal-summary" class="text-slate-300 text-sm leading-relaxed">
+                        Prepare a 10-slide deck covering key objectives, metrics, and budget requests for next quarter and share with key team leads for review.
+                    </p>
+                </div>
+                
+                <!-- Target Timeline Pill -->
+                <div class="bg-slate-900/80 border border-slate-700/60 rounded-xl p-4 flex flex-col items-center justify-center min-w-[200px] text-center">
+                    <span class="text-xs text-slate-400 font-medium">Target Deadline</span>
+                    <span id="target-deadline" class="text-lg font-bold text-emerald-400 mt-1 flex items-center gap-1.5">
+                        <i data-lucide="calendar-check" class="w-5 h-5"></i> Friday, 5:00 PM
+                    </span>
+                    <span class="text-[11px] text-slate-500 mt-1">7 Days Total Duration</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- S.M.A.R.T. Visual Breakdown Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-6">
+
+            <!-- S: SPECIFIC -->
+            <div class="glass-card rounded-2xl p-5 border-t-4 border-t-sky-400 hover:border-t-sky-300 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="w-9 h-9 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center font-black text-lg">S</span>
+                        <i data-lucide="compass" class="w-5 h-5 text-sky-400 group-hover:rotate-45 transition-transform duration-300"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-sky-300 mb-1">Specific</h3>
+                    <p class="text-xs text-slate-400 mb-3">What exact action will be performed?</p>
+                    <div id="smart-s" class="text-xs text-slate-200 leading-relaxed bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                        Draft a 10-slide presentation deck containing executive summary, market analysis, 3 primary KPIs, and budget allocation.
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 flex items-center gap-1.5 text-[11px] text-sky-400/80">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Clear & focused outcome
+                </div>
+            </div>
+
+            <!-- M: MEASURABLE -->
+            <div class="glass-card rounded-2xl p-5 border-t-4 border-t-emerald-400 hover:border-t-emerald-300 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-black text-lg">M</span>
+                        <i data-lucide="bar-chart-3" class="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-emerald-300 mb-1">Measurable</h3>
+                    <p class="text-xs text-slate-400 mb-3">How will success be tracked?</p>
+                    <div id="smart-m" class="text-xs text-slate-200 leading-relaxed bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                        • 10 completed slides<br>
+                        • 3 stakeholder reviews received<br>
+                        • 100% rubric compliance
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 flex items-center gap-1.5 text-[11px] text-emerald-400/80">
+                    <i data-lucide="activity" class="w-3.5 h-3.5"></i> Quantifiable progress
+                </div>
+            </div>
+
+            <!-- A: ACHIEVABLE -->
+            <div class="glass-card rounded-2xl p-5 border-t-4 border-t-amber-400 hover:border-t-amber-300 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-black text-lg">A</span>
+                        <i data-lucide="zap" class="w-5 h-5 text-amber-400 group-hover:translate-y-[-2px] transition-transform"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-amber-300 mb-1">Achievable</h3>
+                    <p class="text-xs text-slate-400 mb-3">Is this realistic with available resources?</p>
+                    <div id="smart-a" class="text-xs text-slate-200 leading-relaxed bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                        Allocated 1.5 focused focus-hours per day. Templates and raw data are already gathered from last week's research.
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 flex items-center gap-1.5 text-[11px] text-amber-400/80">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Realistic scope
+                </div>
+            </div>
+
+            <!-- R: RELEVANT -->
+            <div class="glass-card rounded-2xl p-5 border-t-4 border-t-purple-400 hover:border-t-purple-300 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-black text-lg">R</span>
+                        <i data-lucide="trending-up" class="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-purple-300 mb-1">Relevant</h3>
+                    <p class="text-xs text-slate-400 mb-3">Why does this matter right now?</p>
+                    <div id="smart-r" class="text-xs text-slate-200 leading-relaxed bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                        Aligns with quarterly team growth targets and ensures alignment before executive planning meeting next month.
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 flex items-center gap-1.5 text-[11px] text-purple-400/80">
+                    <i data-lucide="target" class="w-3.5 h-3.5"></i> Aligned with big picture
+                </div>
+            </div>
+
+            <!-- T: TIME-BOUND -->
+            <div class="glass-card rounded-2xl p-5 border-t-4 border-t-rose-400 hover:border-t-rose-300 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-black text-lg">T</span>
+                        <i data-lucide="clock" class="w-5 h-5 text-rose-400 group-hover:rotate-12 transition-transform"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-rose-300 mb-1">Time-Bound</h3>
+                    <p class="text-xs text-slate-400 mb-3">What is the deadline and schedule?</p>
+                    <div id="smart-t" class="text-xs text-slate-200 leading-relaxed bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                        Draft finished by Wednesday. Reviews collected Thursday. Final edits completed Friday by 5:00 PM.
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800 flex items-center gap-1.5 text-[11px] text-rose-400/80">
+                    <i data-lucide="hourglass" class="w-3.5 h-3.5"></i> Strict 7-day deadline
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Weekly Execution Roadmap & Checklist -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Timeline Milestones (Left 2 cols) -->
+            <div class="lg:col-span-2 glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-indigo-400"></i> Weekly Action Roadmap
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">Daily micro-milestones to guarantee goal completion</p>
+                    </div>
+                    <span id="progress-percent-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                        0% Completed
+                    </span>
+                </div>
+
+                <!-- Daily Milestone List -->
+                <div id="daily-roadmap" class="space-y-4">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+            </div>
+
+            <!-- Progress Tracker & Habits (Right col) -->
+            <div class="glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-4">
+                        <i data-lucide="pie-chart" class="w-5 h-5 text-emerald-400"></i> Weekly Completion
+                    </h3>
+
+                    <!-- Progress Bar -->
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-xs font-semibold">
+                            <span class="text-slate-400">Overall Progress</span>
+                            <span id="progress-text" class="text-emerald-400">0 of 5 Tasks Done</span>
+                        </div>
+                        <div class="w-full bg-slate-900 rounded-full h-3 p-0.5 border border-slate-800">
+                            <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-emerald-400 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Key Focus Habits -->
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Goal Multipliers (Success Drivers)</h4>
+                    <ul class="space-y-2.5 text-xs text-slate-300">
+                        <li class="flex items-start gap-2 bg-slate-900/40 p-2.5 rounded-lg border border-slate-800/80">
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <span><strong>Time-boxing:</strong> Block 90 mins uninterrupted each morning.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-900/40 p-2.5 rounded-lg border border-slate-800/80">
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <span><strong>Zero Multitasking:</strong> Turn off social & chat notifications during focus blocks.</span>
+                        </li>
+                        <li class="flex items-start gap-2 bg-slate-900/40 p-2.5 rounded-lg border border-slate-800/80">
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <span><strong>Daily Check-in:</strong> Review progress at 5 PM daily.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Motivation Callout -->
+                <div class="bg-indigo-950/40 border border-indigo-500/30 rounded-xl p-4 text-center">
+                    <p class="text-xs italic text-indigo-200">
+                        "Small daily actions compound into major weekly breakthroughs."
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Scripting Logic -->
+    <script>
+        // Preset Goal Data
+        const presets = {
+            work: {
+                title: "Complete Q4 Strategy Presentation Draft & Get Feedback",
+                summary: "Prepare a 10-slide deck covering key objectives, metrics, and budget requests for next quarter and share with key team leads for review.",
+                deadline: "Friday, 5:00 PM",
+                s: "Draft a 10-slide presentation deck containing executive summary, market analysis, 3 primary KPIs, and budget allocation.",
+                m: "• 10 completed slides\n• 3 stakeholder reviews received\n• 100% rubric compliance",
+                a: "Allocated 1.5 focus-hours per day. Templates and raw data are already gathered from last week's research.",
+                r: "Aligns with quarterly team growth targets and ensures alignment before executive planning meeting next month.",
+                t: "Draft finished by Wednesday. Reviews collected Thursday. Final edits completed Friday by 5:00 PM.",
+                tasks: [
+                    { day: "Mon", title: "Outline deck structure & aggregate data sources", detail: "Create outline and key takeaway bullet points per slide." },
+                    { day: "Tue", title: "Draft Slides 1 - 5 (Strategy & Market Context)", detail: "Focus on problem statement and high-level strategy." },
+                    { day: "Wed", title: "Draft Slides 6 - 10 (KPIs & Budget Requirements)", detail: "Add financial charts and resource requests." },
+                    { day: "Thu", title: "Send draft to 3 department heads for review", detail: "Request feedback by Friday 12 PM." },
+                    { day: "Fri", title: "Incorporate feedback and publish final presentation", detail: "Final polish, alignment check, and distribution." }
+                ]
+            },
+            fitness: {
+                title: "Run 15 km Total & Complete 3 Strength Workouts",
+                summary: "Boost cardiovascular endurance and strength consistency across 5 dedicated training days this week.",
+                deadline: "Sunday, 7:00 PM",
+                s: "Complete three 5 km runs at target pace (6:00/km) plus three 30-minute full-body strength routines.",
+                m: "• 15 km logged on Strava/fitness app\n• 3 strength sessions completed\n• 7 hours sleep per night",
+                a: "Fits into daily morning routine (6:30 AM workouts) before work commitments begin.",
+                r: "Builds physical stamina and energy levels needed for peak productivity and mental clarity.",
+                t: "Runs scheduled for Mon/Wed/Sat; Strength training for Tue/Thu/Sun.",
+                tasks: [
+                    { day: "Mon", title: "5 km Easy Pace Run", detail: "Focus on form and consistent cadence." },
+                    { day: "Tue", title: "30-min Upper Body & Core Strength Training", detail: "Dumbbell routine focusing on push/pull exercises." },
+                    { day: "Wed", title: "5 km Interval Tempo Run", detail: "Warm up + 5x 1-min speed intervals." },
+                    { day: "Thu", title: "30-min Lower Body Strength Training", detail: "Squats, lunges, and calf raises." },
+                    { day: "Fri - Sun", title: "Final 5 km Run & Recovery Mobility Routine", detail: "Complete weekend long run and 20-min yoga stretch." }
+                ]
+            },
+            learning: {
+                title: "Master Fundamentals of React Hooks & Build Demo App",
+                summary: "Deepen frontend developer skills by completing a video module series and shipping a working interactive widget.",
+                deadline: "Saturday, 6:00 PM",
+                s: "Study useState, useEffect, and custom hooks, then build a functional task-tracker app.",
+                m: "• 4 study modules finished\n• 1 working application hosted on GitHub\n• 0 console errors",
+                a: "Allocated 1 hour of study every evening after dinner.",
+                r: "Directly improves ability to contribute to client frontend codebase projects.",
+                t: "Complete theory by Thursday; code and deploy by Saturday evening.",
+                tasks: [
+                    { day: "Mon", title: "Watch & take notes on useState & useEffect modules", detail: "Focus on state lifecycle and dependency arrays." },
+                    { day: "Tue", title: "Complete coding exercises on custom hooks", detail: "Practice writing reusable fetch and form state hooks." },
+                    { day: "Wed", title: "Architect project structure & UI layout", detail: "Set up component hierarchy for task tracker." },
+                    { day: "Thu - Fri", title: "Build logic, state flow & local storage persistence", detail: "Implement full CRUD functionality." },
+                    { day: "Sat", title: "Refactor code & publish live demo on GitHub Pages", detail: "Write README notes and share demo link." }
+                ]
+            },
+            custom: {
+                title: "[Your Goal Title Here]",
+                summary: "Briefly explain the target outcome you wish to achieve over the next 7 days.",
+                deadline: "End of Week",
+                s: "Describe the specific actions, outputs, and scope clearly.",
+                m: "List 2-3 concrete metrics or indicators of success.",
+                a: "Explain why this goal is realistic with your current schedule.",
+                r: "Note why this target is meaningful right now.",
+                t: "Define the specific deadline and daily schedule.",
+                tasks: [
+                    { day: "Day 1-2", title: "Planning & Phase 1 Execution", detail: "Set up foundation and complete initial tasks." },
+                    { day: "Day 3-4", title: "Core Work & Milestone 1", detail: "Drive heavy execution and check early progress." },
+                    { day: "Day 5-6", title: "Refinement & Final Push", detail: "Address remaining tasks and polish work." },
+                    { day: "Day 7", title: "Review & Celebration", detail: "Verify against success criteria and reflect." }
+                ]
+            }
+        };
+
+        let currentTasks = [];
+        let completedTasks = new Set();
+
+        function loadPreset(key) {
+            const data = presets[key];
+            if (!data) return;
+
+            // Highlight Active Preset Button
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.className = "preset-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 bg-slate-800 text-slate-300 hover:bg-slate-700";
+            });
+            const activeBtn = document.getElementById(`btn-${key}`);
+            if (activeBtn) {
+                activeBtn.className = "preset-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 bg-indigo-600 text-white shadow-lg shadow-indigo-500/25";
+            }
+
+            // Fill Content
+            document.getElementById('goal-title').textContent = data.title;
+            document.getElementById('goal-summary').textContent = data.summary;
+            document.getElementById('target-deadline').innerHTML = `<i data-lucide="calendar-check" class="w-5 h-5"></i> ${data.deadline}`;
+            
+            document.getElementById('smart-s').innerText = data.s;
+            document.getElementById('smart-m').innerText = data.m;
+            document.getElementById('smart-a').innerText = data.a;
+            document.getElementById('smart-r').innerText = data.r;
+            document.getElementById('smart-t').innerText = data.t;
+
+            // Render Tasks
+            currentTasks = data.tasks;
+            completedTasks.clear();
+            renderRoadmap();
+            updateProgress();
+
+            // Re-initialize icons
+            lucide.createIcons();
+        }
+
+        function renderRoadmap() {
+            const container = document.getElementById('daily-roadmap');
+            container.innerHTML = '';
+
+            currentTasks.forEach((task, index) => {
+                const isDone = completedTasks.has(index);
+                const itemHtml = `
+                    <div onclick="toggleTask(${index})" class="cursor-pointer group flex items-start gap-4 p-4 rounded-xl border transition-all duration-200 ${isDone ? 'bg-emerald-950/20 border-emerald-500/30' : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'}">
+                        <div class="mt-0.5">
+                            <div class="w-6 h-6 rounded-lg flex items-center justify-center transition-colors ${isDone ? 'bg-emerald-500 text-slate-950' : 'border-2 border-slate-600 group-hover:border-indigo-400 text-transparent'}">
+                                <i data-lucide="check" class="w-4 h-4 stroke-[3]"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1 space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${isDone ? 'bg-emerald-500/20 text-emerald-300' : 'bg-indigo-500/20 text-indigo-300'}">
+                                    ${task.day}
+                                </span>
+                                <h4 class="text-sm font-semibold ${isDone ? 'line-through text-slate-400' : 'text-slate-100'}">
+                                    ${task.title}
+                                </h4>
+                            </div>
+                            <p class="text-xs text-slate-400">${task.detail}</p>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', itemHtml);
+            });
+            lucide.createIcons();
+        }
+
+        function toggleTask(index) {
+            if (completedTasks.has(index)) {
+                completedTasks.delete(index);
+            } else {
+                completedTasks.add(index);
+            }
+            renderRoadmap();
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const total = currentTasks.length;
+            const done = completedTasks.size;
+            const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('progress-text').textContent = `${done} of ${total} Tasks Done`;
+            document.getElementById('progress-percent-badge').textContent = `${percent}% Completed`;
+            
+            if (percent === 100) {
+                document.getElementById('progress-percent-badge').className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 animate-bounce";
+            } else {
+                document.getElementById('progress-percent-badge').className = "px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30";
+            }
+        }
+
+        // Initialize on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPreset('work');
+        });
+    </script>
+</body>
+</html>
